@@ -1,5 +1,5 @@
 # firebaseJavaScript_CRUD
-Firebase JavaScript Web CRUD (PURE MODERN JAVASCRIPT)
+Firebase JavaScript WEB CRUD (PURE MODERN CORE JAVASCRIPT)
 > This CRUD tools specially designed for Data Science Project
 
 > Anyone can collect data without using SQL, MySql and other programming languages
