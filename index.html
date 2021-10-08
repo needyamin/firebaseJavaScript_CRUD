@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase CRUD</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <!--- WEB FIREBASE JS CDN -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-storage.js"></script>
+    
+      </head>
+
+
+  <body>
+	  
+
+	  
+  <div id="formLRC"> 
+    <h1>Enter Your Information</h1>
+   
+	  <input type="text" id="name" placeholder="Enter Your Name"> <br>
+	    <input type="email" id="email" placeholder="Enter Your Email"><br>
+	      <input type="number" id="phone" placeholder="Mobile Number"><br>
+	        <input type="submit" onclick="submit();" value="Submit" style="width:84%;background: #2f2c51;color: white;font-weight: bold;padding:8px; "> 
+	       
+	  
+	        <p id="posted"> </p>
+	        
+	             </div>
+	  
+   <div id="formLRC">   
+	    <h1>Fetching All Information</h1>
+	   
+	   <table id="tableIDX"> <tr>
+		<th>Name</th>
+         <th>Email</th>
+         <th>Phone</th> 
+         </tr>
+         </table> 
+         
+		<span id="issuesList"></span>
+			
+	   
+	   </div>
+	   
+	   <span id="del"></span>
+	   
+  
+	              
+	              <!-- All JavaScript  Files -->
+                  <script src="config.js"> </script>
+                  <script src="create.js"> </script>
+                  <script src="fetch.js"> </script>
+                  <script src="delete.js"> </script>
+    
+</body>
+</html>

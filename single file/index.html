@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase CRUD</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <!--- WEB FIREBASE JS CDN -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-storage.js"></script>
+    
+ <style>
+input{padding:8px; margin-top:5px;width:80%;}
+tr,td,th{border:1px solid black; padding:5px;}
+#formLRC {float:left; width:48%; padding:10px;}
+#tableIDX{width:100%; }
+</style>
+    
+    </head>
+
+
+  <body>
+	  
+
+	  
+  <div id="formLRC"> 
+    <h1>Enter Your Information</h1>
+   
+	  <input type="text" id="name" placeholder="Enter Your Name"> <br>
+	    <input type="email" id="email" placeholder="Enter Your Email"><br>
+	      <input type="number" id="phone" placeholder="Mobile Number"><br>
+	        <input type="submit" onclick="submit();" value="Submit" style="width:84%;background: #2f2c51;color: white;font-weight: bold;padding:8px; "> 
+	       
+	  
+	        <p id="posted"> </p>
+	        
+	             </div>
+	  
+   <div id="formLRC">   
+	    <h1>Fetching All Information</h1>
+	   
+	   <table id="tableIDX"> <tr>
+		<th>Name</th>
+         <th>Email</th>
+         <th>Phone</th> 
+         </tr>
+         </table> 
+         
+		<span id="issuesList"></span>
+			
+	   
+	   </div>
+	   
+	   <span id="del"></span>
+	   
+  
+	              
+ <!-- All JavaScript  Files -->
+       <script>
+					  
+		//FireBase Database Config	
+		  var config = {
+			  apiKey: " AAAAESDdNRg:APA91bFoA13GgEqSapjoBaz7NlSyMhiPk-5BJOILY2PZBPQHc2569rCVyLNzhs1gQHTfJmMElHIzSl7kXR3SFpyshYYVylOAkOEiNzQic0hNR7fLBW6InxrR-3Go2T8BQhrlo0vXbLJG ",
+			  authDomain: "ansnew007.firebaseapp.com",
+			  databaseURL: "https://ansnew007-default-rtdb.firebaseio.com",
+			  storageBucket: "ansnew007.appspot.com"
+			  };
+			  firebase.initializeApp(config);
+			  
+			  // Get a reference to the database service
+			  var database = firebase.database();
+
+ 
+		
+// Generate Random ID
+var userId = "id" + Math.random().toString(16).slice(2);  // current use
+var uniq = 'id' + (new Date()).getTime();
+
+// Variable for Each Input Fields
+function submit(){
+	
+var name = document.getElementById("name").value;
+var email = document.getElementById("email").value;
+var phone = document.getElementById("phone").value;
+
+
+if(name === '' || email ==='' || phone ===''){ 
+	alert('Please fill up all information');
+	 document.getElementById("posted").innerHTML ="<span style='color:red;'>"+'Please fill Name, Email, Phone Number collectly'+"</span>";
+	}
+
+else{
+function writeUserData(userId, name, email, phone) {
+ firebase.database().ref('users/' + userId).set({
+	id: userId, 
+    name: name,
+    email: email,
+    phone : phone
+  });
+  
+  console.log('POSTED');
+  document.getElementById("posted").innerHTML = "DATA HAS BEEN POSTED. ID NO: " + userId;
+  
+  //reload after 3 sec
+  setTimeout(function(){window.location.href = '';}, 3000);
+    
+    //reset function
+     function reset(){
+		 document.getElementById("name").value = '';
+		 document.getElementById("email").value = '';
+		 document.getElementById("phone").value = '';
+		 }
+	    //print 
+		 reset();
+ 
+}
+//print
+writeUserData(userId, name, email, phone);
+
+}
+}
+
+
+var leadsRef = database.ref('users');
+leadsRef.on('value', function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      var childData = childSnapshot.val();
+      console.log(childData);
+      
+      document.getElementById("issuesList").innerHTML += `
+         <table id="tableIDX">
+         
+         <tr>
+         <td width="800px">${childData.name}</td>
+         <td width="200px">${childData.email}</td>
+         <td width="200px">${childData.phone}</td>
+         <td width="200px"><a href="?id=${childData.id}"> Delete</a> </td>
+         </tr>
+         
+         </table>`
+      
+      
+    });
+});
+
+
+      
+
+
+
+var url_string = ""+ window.location.href; //window.location.href
+
+var url = new URL(url_string);
+var key = url.searchParams.get("id");
+console.log(key);
+
+//var key ="s";
+
+var db = firebase.database();                   
+var ref = db.ref(); 
+
+//path is company/employee
+ var survey=db.ref('users/');                    
+ 
+if (key == ''){ 
+	console.log('error'); 
+	document.getElementById('del').innerHTML ="Something Wrong";
+	}
+
+ //key is employee id
+ survey.child(key).remove(); 
+ document.getElementById('del').innerHTML ="<span style='color:red'>ID <b>"+key+"</b> has been deleted successfully</span>";
+ 
+ //reload after 3 sec
+ setTimeout(function(){window.location.href = 'http://localhost/firebaseJavaScript/single file/';}, 3000);
+
+
+
+		</script>
+				 
+
+    
+</body>
+</html>
