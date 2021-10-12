@@ -21,7 +21,7 @@ firebase.initializeApp(config);
 var database = firebase.database();
 ````
 
-If you want any help about the configuration, please feel free to contact needyamin@ansnew.com
+If you want any help, please create issues on this github repository
         
 
 
